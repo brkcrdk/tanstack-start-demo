@@ -6,6 +6,7 @@ export function createRouter() {
     routeTree,
     scrollRestoration: true,
     trailingSlash: "never",
+    isServer: true,
   });
 
   return router;
