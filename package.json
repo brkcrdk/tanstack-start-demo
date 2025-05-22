@@ -1,0 +1,37 @@
+{
+  "name": "tanstack-start",
+  "version": "1.0.0",
+  "description": "Tanstack start deneyimlemek için geliştirdiğim demo projesi",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brkcrdk/tanstack-start-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brkcrdk/tanstack-start-demo/issues"
+  },
+  "homepage": "https://github.com/brkcrdk/tanstack-start-demo#readme",
+  "dependencies": {
+    "@tanstack/react-router": "^1.120.5",
+    "@tanstack/react-start": "^1.120.5",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vinxi": "^0.5.6"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.5",
+    "@types/react-dom": "^19.1.5",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
