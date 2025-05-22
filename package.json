@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/brkcrdk/tanstack-start-demo#readme",
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
     "@tanstack/react-router": "^1.120.5",
     "@tanstack/react-start": "^1.120.5",
     "lucide-react": "^0.511.0",
