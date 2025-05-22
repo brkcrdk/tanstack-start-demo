@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import {
   Outlet,
   createRootRoute,
@@ -41,6 +42,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         {children}
+        <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
     </html>

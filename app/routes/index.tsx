@@ -3,8 +3,6 @@ import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
 
 const login = createServerFn({ method: "GET" }).handler(async () => {
-  // const headers = getHeaders();
-  // console.log({ headers });
   const accessToken = getCookie("access_token");
   console.log({ accessToken });
   return "x";
