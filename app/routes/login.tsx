@@ -5,5 +5,6 @@ export const Route = createFileRoute("/login")({
 });
 
 function RouteComponent() {
+  // TODO: Shadcn eklenecek
   return <div>Hello "/login"!</div>;
 }
