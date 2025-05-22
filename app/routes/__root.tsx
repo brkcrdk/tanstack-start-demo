@@ -7,7 +7,13 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
+/**
+ * Vite'e özel bir statik dosya import etme yöntemi olduğu için `?url` suffixi eklenmiştir. 
+ * 
+ * @see https://vite.dev/guide/assets
+ */
 import appCss from "@/styles/index.css?url";
+
 
 export const Route = createRootRoute({
   head: () => ({
