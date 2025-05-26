@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "123456",
+      "loginMetadata": {}
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "email": "jane.doe@example.com",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "123456"
+    },
+    {
+      "id": 4,
+      "name": "Alice Smith",
+      "email": "alice.smith@example.com",
+      "password": "secure123"
+    },
+    {
+      "id": 5,
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "password": "pass456"
+    },
+    {
+      "id": 6,
+      "name": "Emma Wilson",
+      "email": "emma.wilson@example.com",
+      "password": "emma789"
+    },
+    {
+      "id": 7,
+      "name": "Michael Brown",
+      "email": "michael.brown@example.com",
+      "password": "mb2023"
+    },
+    {
+      "id": 8,
+      "name": "Sarah Davis",
+      "email": "sarah.davis@example.com",
+      "password": "sd2024"
+    },
+    {
+      "id": 9,
+      "name": "David Miller",
+      "email": "david.miller@example.com",
+      "password": "dm2025"
+    },
+    {
+      "id": 10,
+      "name": "Lisa Anderson",
+      "email": "lisa.anderson@example.com",
+      "password": "la2026"
+    },
+    {
+      "id": 11,
+      "name": "James Taylor",
+      "email": "james.taylor@example.com",
+      "password": "jt2027"
+    },
+    {
+      "id": 12,
+      "name": "Jennifer White",
+      "email": "jennifer.white@example.com",
+      "password": "jw2028"
+    },
+    {
+      "id": 13,
+      "name": "Robert Martin",
+      "email": "robert.martin@example.com",
+      "password": "rm2029"
+    }
+  ],
+  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" }
+}
