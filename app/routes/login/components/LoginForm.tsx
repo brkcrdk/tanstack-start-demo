@@ -1,39 +1,26 @@
 import { Link } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
-import { createServerFn } from "@tanstack/react-start";
-import { setCookie } from "@tanstack/react-start/server";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import loginMutation from "@/services/login";
 
 interface LoginFormValues {
   email: string;
   password: string;
 }
 
-export const greet = createServerFn({
-  method: "GET",
-})
-  .validator((data: LoginFormValues) => data)
-  .handler(async (ctx) => {
-    const cookie = crypto.randomUUID();
-
-    setCookie("access_token", cookie);
-    return `Hello, ${ctx.data.email}! Your cookie is ${cookie}`;
-  });
-
 function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const onSubmit = async (data: LoginFormValues) => {
-    const res = await greet({
-      data: {
-        email: "test@test.com",
-        password: "123456",
-      },
+    const res = await loginMutation({
+      data,
     });
+
+    console.log(res);
   };
 
   return (
