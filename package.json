@@ -38,8 +38,6 @@
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.4.1",
     "class-variance-authority": "^0.7.1",
-    "json-server": "1.0.0-beta.3",
-    "lowdb": "^7.0.1",
     "postcss": "^8.5.3",
     "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7",
