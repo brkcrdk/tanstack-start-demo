@@ -14,16 +14,23 @@ interface Props {
    * @defaultValue `true`
    */
   requireAuth?: boolean;
+  /**
+   * Bu değer atılacak olan body tipini belirtir. Eğer formData değeri true olarak belirtilirse
+   * request headerına `content-type`  ve `accept` değerleri eklenmez.
+   *
+   * @defaultValue `false`
+   */
   formData?: boolean;
 }
 
-async function fetcher({ url, fetchOptions, requireAuth = true, formData }: Props) {
+async function fetcher({ url, fetchOptions, requireAuth = true, formData = false }: Props) {
   const accessToken = getCookie('access_token');
 
   const headers = new Headers(fetchOptions.headers);
 
   if (!formData) {
     headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
   }
 
   if (requireAuth) {
@@ -35,16 +42,39 @@ async function fetcher({ url, fetchOptions, requireAuth = true, formData }: Prop
     headers,
   };
 
-  const request = await fetch(`${baseUrl}${url}`, computedOptions);
+  try {
+    const request = await fetch(`${baseUrl}${url}`, computedOptions);
 
-  console.log({ url, computedURL: `${baseUrl}${url}`, request, baseUrl });
+    console.log(request);
 
-  if (requireAuth && request.status === 401) {
-    const refreshToken = getCookie('refresh_token');
-    console.log(refreshToken);
-  } else {
-    return request.json();
+    if (request.ok) {
+      return {
+        success: true,
+        statusCode: request.status,
+        data: await request.json(),
+      };
+    } else {
+      return {
+        success: false,
+        statusCode: request.status,
+        message: request.statusText,
+      };
+    }
+  } catch (error) {
+    return {
+      success: false,
+      statusCode: 500,
+      data: error,
+      message: error instanceof Error ? error.message : 'unknown error',
+    };
   }
+
+  // if (requireAuth && request.status === 401) {
+  //   const refreshToken = getCookie('refresh_token');
+  //   console.log(refreshToken);
+  // } else {
+  //   return request.json();
+  // }
 
   // console.log(computedOptions);
 

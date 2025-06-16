@@ -23,33 +23,20 @@ const loginMutation = createServerFn({
 })
   .validator(loginMutationSchema)
   .handler(async () => {
-    // await sleep(10000);
-    // const response = await mutation('/loginxx', {
-    //   requireAuth: true,
-    //   body: JSON.stringify({
-    //     email: 'burak1111',
-    //     password: '123456',
-    //   }),
-    // });
+    const response = await fetcher({
+      url: '/loginxxx',
+      requireAuth: false,
+      formData: false,
+      fetchOptions: {
+        method: 'POST',
+        body: JSON.stringify({
+          email: 'burak1111',
+          password: '123456',
+        }),
+      },
+    });
 
-    // const response = await fetcher({
-    //   url: '/login',
-    //   requireAuth: false,
-    //   formData: false,
-    //   fetchOptions: {
-    //     method: 'POST',
-    //     body: JSON.stringify({
-    //       email: 'burak1111',
-    //       password: '123456',
-    //     }),
-    //   },
-    // });
-
-    // return response;
-
-    console.log(import.meta.env);
-
-    return 'xx';
+    return response;
   });
 
 export default loginMutation;

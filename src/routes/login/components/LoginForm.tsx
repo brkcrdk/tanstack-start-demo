@@ -16,13 +16,18 @@ interface LoginFormValues {
 function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
-  const { mutate: login, isPending } = useMutation({
+  const {
+    mutate: login,
+    isPending,
+    isError,
+    error,
+  } = useMutation({
     mutationFn: loginMutation,
-    onSuccess: () => {
-      console.log('success');
+    onSuccess: e => {
+      console.log('success', e);
     },
-    onError: () => {
-      console.log('error');
+    onError: e => {
+      console.log('error', e);
     },
   });
 
@@ -36,6 +41,7 @@ function LoginForm() {
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">Enter your email below to login to your account</p>
+        <pre>{JSON.stringify(error, null, 4)}</pre>
       </div>
       <div className="grid gap-6">
         <div className="grid gap-3">
