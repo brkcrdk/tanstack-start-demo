@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
@@ -43,6 +44,8 @@ function RootComponent() {
   );
 }
 
+const queryClient = new QueryClient();
+
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html>
@@ -50,7 +53,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>

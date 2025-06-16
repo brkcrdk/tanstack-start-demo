@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 
@@ -15,12 +16,20 @@ interface LoginFormValues {
 function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
+  const { mutate: login, isPending } = useMutation({
+    mutationFn: loginMutation,
+    onSuccess: () => {
+      console.log('success');
+    },
+    onError: () => {
+      console.log('error');
+    },
+  });
+
   const onSubmit = async (data: LoginFormValues) => {
-    const res = await loginMutation({
+    login({
       data,
     });
-
-    console.log(res);
   };
 
   return (
@@ -64,7 +73,7 @@ function LoginForm() {
           type="submit"
           className="w-full"
         >
-          Login
+          {isPending ? 'Loading...' : 'Login'}
         </Button>
         <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
           <span className="bg-background text-muted-foreground relative z-10 px-2">Or continue with</span>

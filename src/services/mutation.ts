@@ -9,13 +9,13 @@ interface Props extends RequestInit {
   requireAuth?: boolean;
 }
 
-async function mutation<T>(endpoint: string, requestInit?: Props) {
+async function mutation<T>(endpoint: string, requestInit: Props) {
   if (requestInit?.requireAuth) {
     const accessToken = getCookie('access_token');
     const refreshToken = getCookie('refresh_token');
 
     if (!accessToken && !refreshToken) {
-      redirect({ to: '/logout' });
+      redirect({ to: '/login' });
     }
 
     const computedRequestParams: RequestInit = {
@@ -33,6 +33,7 @@ async function mutation<T>(endpoint: string, requestInit?: Props) {
     }
 
     const request = await fetch(`${computedBaseUrl}${endpoint}`, computedRequestParams);
+    console.log(request);
 
     if (!request.ok && request.status !== 401) {
       const errorResponse = await request.json();
