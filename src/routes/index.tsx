@@ -1,6 +1,6 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute('/')({
   component: Home,
 });
 
@@ -13,7 +13,8 @@ function Home() {
       type="button"
       onClick={() => {
         router.invalidate();
-      }}>
+      }}
+    >
       Add 1 to {state}?
     </button>
   );
