@@ -15,7 +15,6 @@ const loginMutation = createServerFn({
 })
   .validator(loginMutationSchema)
   .handler(async ctx => {
-    console.log(ctx);
     const cookie = crypto.randomUUID();
 
     setCookie('access_token', cookie);
