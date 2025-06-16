@@ -2,6 +2,8 @@ import { createServerFn } from '@tanstack/react-start';
 import { setCookie } from '@tanstack/react-start/server';
 import { z } from 'zod/v4-mini';
 
+import fetcher from '@/lib/fetcher';
+
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -21,16 +23,33 @@ const loginMutation = createServerFn({
 })
   .validator(loginMutationSchema)
   .handler(async () => {
-    await sleep(10000);
-    const response = await mutation('/loginxx', {
-      requireAuth: true,
-      body: JSON.stringify({
-        email: 'burak1111',
-        password: '123456',
-      }),
-    });
+    // await sleep(10000);
+    // const response = await mutation('/loginxx', {
+    //   requireAuth: true,
+    //   body: JSON.stringify({
+    //     email: 'burak1111',
+    //     password: '123456',
+    //   }),
+    // });
 
-    return response;
+    // const response = await fetcher({
+    //   url: '/login',
+    //   requireAuth: false,
+    //   formData: false,
+    //   fetchOptions: {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //       email: 'burak1111',
+    //       password: '123456',
+    //     }),
+    //   },
+    // });
+
+    // return response;
+
+    console.log(import.meta.env);
+
+    return 'xx';
   });
 
 export default loginMutation;

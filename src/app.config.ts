@@ -7,7 +7,7 @@ interface ProjectConfigProps {
 }
 
 const projectConfig: ProjectConfigProps = {
-  baseUrl: import.meta.env.BASE_URL,
+  baseUrl: import.meta.env.VITE_SERVER_URL,
 };
 
 export default projectConfig;
