@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
+import { Toaster } from '@/components/ui/sonner';
 /**
  * Vite'e özel bir statik dosya import etme yöntemi olduğu için `?url` suffixi eklenmiştir.
  *
@@ -56,6 +57,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
+        <Toaster />
       </body>
     </html>
   );

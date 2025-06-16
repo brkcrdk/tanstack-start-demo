@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,10 +25,13 @@ function LoginForm() {
   } = useMutation({
     mutationFn: loginMutation,
     onSuccess: e => {
-      console.log('success', e);
+      // toast('testing..', {
+      //   description: 'testing..',
+      // });
+      console.log('success', e.refreshToken);
     },
     onError: e => {
-      console.log('error', e);
+      console.log('error', e.message);
     },
   });
 
