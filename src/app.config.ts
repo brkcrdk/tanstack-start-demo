@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 interface ProjectConfigProps {
   /**
    * @returns `process.env.NEXT_PUBLIC_BASE_URL`

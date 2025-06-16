@@ -5,9 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start",
+    "dev": "vite dev",
+    "build": "vite build",
     "checkPackageVersions": "npx npm-check-updates",
     "updatePackageVersions": "npx npm-check-updates -u && pnpm install"
   },
@@ -31,7 +30,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.58.0",
-    "vinxi": "^0.5.7"
+    "vite": "^6.3.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
