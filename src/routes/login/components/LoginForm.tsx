@@ -26,11 +26,7 @@ function LoginForm() {
     },
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
-    login({
-      data,
-    });
-  };
+  const onSubmit = async (data: LoginFormValues) => login({ data });
 
   return (
     <form
