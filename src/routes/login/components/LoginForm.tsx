@@ -37,9 +37,9 @@ function LoginForm() {
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
-            type="email"
+            // type="email"
             placeholder="m@example.com"
-            required
+            // required
             {...register('email')}
           />
         </div>

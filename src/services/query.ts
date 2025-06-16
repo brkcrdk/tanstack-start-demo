@@ -1,4 +1,4 @@
-import projectConfig from "@/project.config";
+import projectConfig from '@/app.config';
 
 export interface QueryOptionsProps {
   requireAuth: boolean;
