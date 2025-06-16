@@ -25,17 +25,17 @@
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
-    "@tanstack/react-router": "^1.121.2",
-    "@tanstack/react-start": "^1.121.9",
+    "@tanstack/react-router": "^1.121.16",
+    "@tanstack/react-start": "^1.121.16",
     "lucide-react": "^0.515.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-hook-form": "^7.57.0",
+    "react-hook-form": "^7.58.0",
     "vinxi": "^0.5.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.10",
-    "@tanstack/react-router-devtools": "^1.121.8",
+    "@tanstack/react-router-devtools": "^1.121.16",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
