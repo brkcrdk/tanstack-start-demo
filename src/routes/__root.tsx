@@ -1,27 +1,38 @@
-import type { ReactNode } from "react";
-import {
-  Outlet,
-  createRootRoute,
-  HeadContent,
-  Scripts,
-} from "@tanstack/react-router";
+import type { ReactNode } from 'react';
+
+import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+
+/**
+ * Vite'e özel bir statik dosya import etme yöntemi olduğu için `?url` suffixi eklenmiştir.
+ *
+ * @see https://vite.dev/guide/assets
+ */
+import appCss from '@/styles/index.css?url';
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
-        charSet: "utf-8",
+        charSet: 'utf-8',
       },
       {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1',
       },
       {
-        title: "TanStack Start Starter",
+        title: 'TanStack Start Starter',
+      },
+    ],
+    links: [
+      {
+        rel: 'stylesheet',
+        href: appCss,
       },
     ],
   }),
   component: RootComponent,
+  notFoundComponent: () => <div>Not Found</div>,
 });
 
 function RootComponent() {
@@ -40,6 +51,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         {children}
+        <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
     </html>
