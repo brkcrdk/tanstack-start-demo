@@ -29,6 +29,10 @@ const loginMutation = createServerFn({
       },
     });
 
+    /**
+     * NOT: Hata olduğu zaman exception çalışacak ve useMutation hook'u bu hatayı yakalayacak.
+     * Hata olmadığı zaman bu değerler kesin olduğu için cookileri set edebiliyoruz.
+     */
     setCookie('access_token', response.token);
     setCookie('refresh_token', response.refreshToken);
 
