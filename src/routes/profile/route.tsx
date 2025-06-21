@@ -1,12 +1,21 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
 
 import AppSidebar from '@/components/app-sidebar';
 import { BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import checkAuthMiddleware from '@/lib/checkAuthMiddleware';
+
+const checkAuth = createServerFn({ method: 'GET' })
+  .middleware([checkAuthMiddleware])
+  .handler(async () => {
+    return true;
+  });
 
 export const Route = createFileRoute('/profile')({
+  beforeLoad: () => checkAuth(),
   component: RouteComponent,
 });
 

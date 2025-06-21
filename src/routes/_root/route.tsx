@@ -1,22 +1,17 @@
-import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
-import { getCookie } from '@tanstack/react-start/server';
 
 import AppSidebar from '@/components/app-sidebar';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import checkAuthMiddleware from '@/lib/checkAuthMiddleware';
 
-export const chechkAuthToken = createServerFn({ method: 'GET' }).handler(async () => {
-  const accessToken = getCookie('access_token');
-  const refreshToken = getCookie('refresh_token');
-
-  if (!accessToken && !refreshToken) {
-    throw redirect({
-      to: '/login',
-    });
-  }
-});
+const chechkAuthToken = createServerFn({ method: 'GET' })
+  .middleware([checkAuthMiddleware])
+  .handler(async () => {
+    return true;
+  });
 
 export const Route = createFileRoute('/_root')({
   beforeLoad: () => chechkAuthToken(),
