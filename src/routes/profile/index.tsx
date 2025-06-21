@@ -5,11 +5,13 @@ import getCurrentUser from '@/services/getCurrentUser';
 
 export const Route = createFileRoute('/profile/')({
   loader: async ({ context }) => {
+    // Cache datasını önceden cache içine ekliyoruz.
     await context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
     });
   },
+  pendingComponent: () => <div>Loading...</div>,
   component: RouteComponent,
 });
 
