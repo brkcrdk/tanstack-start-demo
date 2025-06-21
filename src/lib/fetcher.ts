@@ -1,27 +1,8 @@
-import { getCookie, setCookie, toWebHandler } from '@tanstack/react-start/server';
+import { getCookie, setCookie } from '@tanstack/react-start/server';
 
 import appConfig from '@/app.config';
 
 const baseUrl = `${appConfig.baseUrl}/api`;
-
-// error: { status: false, code: 404, message: 'Kullanıcı bulunamadı.' }
-
-// error: {
-//   status: false,
-//   code: 404,
-//   message: 'No route found for "GET /apivideos/db916a61"'
-// }
-
-type CustomResponse<T> =
-  | {
-      status: true;
-      data: T;
-    }
-  | {
-      status: false;
-      code: number;
-      message: string;
-    };
 
 interface Props {
   url: string;

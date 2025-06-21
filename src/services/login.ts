@@ -1,10 +1,11 @@
 import { createServerFn } from '@tanstack/react-start';
+import { setCookie } from '@tanstack/react-start/server';
 import { z } from 'zod/v4-mini';
 
 import fetcher from '@/lib/fetcher';
 
 interface LoginResponse {
-  accessToken: string;
+  token: string;
   refreshToken: string;
 }
 
@@ -19,8 +20,6 @@ const loginMutation = createServerFn({
   .validator(loginMutationSchema)
   .handler(async ({ data }) => {
     const response = await fetcher<LoginResponse>({
-      // url: '/current_user',
-      // url: '/videos/db916a61',
       url: '/login',
       requireAuth: false,
       formData: false,
@@ -30,7 +29,8 @@ const loginMutation = createServerFn({
       },
     });
 
-    console.log('response', response);
+    setCookie('access_token', response.token);
+    setCookie('refresh_token', response.refreshToken);
 
     return response;
   });

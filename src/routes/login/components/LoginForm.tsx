@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -16,18 +16,15 @@ interface LoginFormValues {
 
 function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
+  const navigate = useNavigate();
 
   const { mutate: login, isPending } = useMutation({
     mutationFn: loginMutation,
-    onSuccess: e => {
-      // toast('testing..', {
-      //   description: 'testing..',
-      // });
-      console.log('success', e.refreshToken);
+    onSuccess: () => {
+      navigate({ to: '/' });
     },
     onError: e => {
       toast.error(e.message);
-      console.log('error', e.message);
     },
   });
 
