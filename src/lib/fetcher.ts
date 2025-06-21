@@ -46,6 +46,7 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
   try {
     const request = await fetch(`${baseUrl}${url}`, computedOptions);
 
+    // REFRESH TOKEN RORATAIN eklemek gerekiyor.
     if (!request.ok) {
       if (request.status === 401 && refreshToken) {
         const refreshRequest = await fetch(`${baseUrl}/refresh_token`, {
@@ -61,7 +62,7 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
           setCookie('access_token', refreshResponse.accessToken);
           setCookie('refresh_token', refreshResponse.refreshToken);
 
-          return fetcher({ url, fetchOptions: computedOptions, requireAuth: true, formData });
+          return fetcher({ url, fetchOptions: computedOptions, requireAuth, formData });
         }
       } else {
         throw new Error(request.statusText, {
