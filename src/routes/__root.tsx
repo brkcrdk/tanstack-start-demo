@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router';
+import { Outlet, HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import { Toaster } from '@/components/ui/sonner';
@@ -11,6 +11,8 @@ import { Toaster } from '@/components/ui/sonner';
  * @see https://vite.dev/guide/assets
  */
 import appCss from '@/styles/index.css?url';
+
+const createRootRoute = createRootRouteWithContext<{ queryClient: QueryClient }>();
 
 export const Route = createRootRoute({
   head: () => ({
