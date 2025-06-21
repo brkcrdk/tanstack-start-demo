@@ -19,7 +19,7 @@ export const chechkAuthToken = createServerFn({ method: 'GET' }).handler(async (
 });
 
 export const Route = createFileRoute('/_root')({
-  loader: () => chechkAuthToken(),
+  beforeLoad: () => chechkAuthToken(),
   component: RouteComponent,
 });
 
