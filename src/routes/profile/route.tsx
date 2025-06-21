@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 
-import { AppSidebar } from '@/components/app-sidebar';
+import AppSidebar from '@/components/app-sidebar';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 
 export const Route = createFileRoute('/profile')({
@@ -10,7 +10,7 @@ export const Route = createFileRoute('/profile')({
 function RouteComponent() {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar isProfileSidebar />
       <SidebarInset>
         <main>
           <Outlet />
