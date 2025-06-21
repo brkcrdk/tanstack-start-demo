@@ -17,8 +17,8 @@ const loginMutation = createServerFn({
   method: 'GET',
 })
   .validator(loginMutationSchema)
-  .handler(async ({ data }) =>
-    fetcher<LoginResponse>({
+  .handler(async ({ data }) => {
+    const response = await fetcher<LoginResponse>({
       // url: '/current_user',
       // url: '/videos/db916a61',
       url: '/login',
@@ -28,7 +28,11 @@ const loginMutation = createServerFn({
         method: 'POST',
         body: JSON.stringify(data),
       },
-    })
-  );
+    });
+
+    console.log('response', response);
+
+    return response;
+  });
 
 export default loginMutation;
