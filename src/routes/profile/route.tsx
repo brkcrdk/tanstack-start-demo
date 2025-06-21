@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 
 import AppSidebar from '@/components/app-sidebar';
 import { BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
@@ -25,7 +25,9 @@ function RouteComponent() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/">Building Your Application</BreadcrumbLink>
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Building Your Application</Link>
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>

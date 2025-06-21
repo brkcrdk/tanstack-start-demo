@@ -1,4 +1,4 @@
-import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 import { getCookie } from '@tanstack/react-start/server';
 
@@ -38,7 +38,10 @@ function RouteComponent() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+                  {/* <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink> */}
+                  <BreadcrumbLink asChild>
+                    <Link to="/">Building Your Application</Link>
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
