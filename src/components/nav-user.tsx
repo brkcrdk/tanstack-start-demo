@@ -1,5 +1,8 @@
 'use client';
 
+import { Link, redirect, useNavigate } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/react-start';
+import { deleteCookie } from '@tanstack/react-start/server';
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -24,7 +27,7 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
-
+  const navigate = useNavigate();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -92,9 +95,15 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
+
+            <DropdownMenuItem
+              asChild
+              // onClick={() => navigate({ to: '/logout' })}
+            >
+              <Link to="/logout">
+                <LogOut />
+                Log out
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
