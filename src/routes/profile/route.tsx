@@ -46,7 +46,7 @@ function RouteComponent() {
             </Breadcrumb>
           </div>
         </header>
-        <main>
+        <main className="px-4">
           <Outlet />
         </main>
       </SidebarInset>

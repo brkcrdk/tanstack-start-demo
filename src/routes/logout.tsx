@@ -10,9 +10,4 @@ const logoutHandler = createServerFn({ method: 'POST' }).handler(async () => {
 
 export const Route = createFileRoute('/logout')({
   loader: () => logoutHandler(),
-  component: RouteComponent,
 });
-
-function RouteComponent() {
-  return <div>Hello "/logut"!</div>;
-}
