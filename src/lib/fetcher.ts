@@ -1,8 +1,15 @@
-import { getCookie, setCookie } from '@tanstack/react-start/server';
+import { getCookie } from '@tanstack/react-start/server';
 
 import appConfig from '@/app.config';
 
+import { getUserCookies, setUserCookies } from './userCookieHandlers';
+
 const baseUrl = `${appConfig.baseUrl}/api`;
+
+interface RefreshResponse {
+  token: string;
+  refreshToken: string;
+}
 
 interface Props {
   url: string;
@@ -24,8 +31,7 @@ interface Props {
 }
 
 async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData = false }: Props): Promise<T> {
-  const accessToken = getCookie('access_token');
-  const refreshToken = getCookie('refresh_token');
+  const { accessToken, refreshToken } = getUserCookies();
 
   const headers = new Headers(fetchOptions.headers);
 
@@ -46,7 +52,6 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
   try {
     const request = await fetch(`${baseUrl}${url}`, computedOptions);
 
-    // REFRESH TOKEN RORATAIN eklemek gerekiyor.
     if (!request.ok) {
       if (request.status === 401 && refreshToken) {
         const refreshRequest = await fetch(`${baseUrl}/refresh_token`, {
@@ -58,9 +63,8 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
         });
 
         if (refreshRequest.ok) {
-          const refreshResponse = await refreshRequest.json();
-          setCookie('access_token', refreshResponse.accessToken);
-          setCookie('refresh_token', refreshResponse.refreshToken);
+          const refreshResponse: RefreshResponse = await refreshRequest.json();
+          setUserCookies(refreshResponse.token, refreshResponse.refreshToken);
 
           return fetcher({ url, fetchOptions: computedOptions, requireAuth, formData });
         }

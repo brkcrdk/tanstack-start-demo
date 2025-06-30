@@ -1,7 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import getCurrentUser from '@/services/getCurrentUser';
@@ -9,12 +8,13 @@ import getCurrentUser from '@/services/getCurrentUser';
 export const Route = createFileRoute('/profile/')({
   loader: async ({ context }) => {
     // Cache datasını önceden cache içine ekliyoruz.
-    await context.queryClient.ensureQueryData({
+    context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
     });
   },
-  pendingComponent: () => <div>Loading...</div>,
+  pendingComponent: () => <div>Loading profile page</div>,
+  errorComponent: () => <div>Error profile page</div>,
   component: RouteComponent,
 });
 

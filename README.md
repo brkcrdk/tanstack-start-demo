@@ -2,6 +2,7 @@
 Tanstack start deneyimlemek için geliştirdiğim demo projesi
 
 TODOS:
+- [ ] Token rotation işlemlerini optimize edelim.
 - [ ] Backendden gelen veriye metadata ekleme yapısını test edelim.
 - [ ] Querylerin nuqs şeklinde çalışıp çalışmaması durumlarının testini yapmak gerekiyor.
 - [ ] File upload işlemlerini test
