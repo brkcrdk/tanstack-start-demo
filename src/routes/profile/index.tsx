@@ -1,13 +1,22 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import { setCookie } from '@tanstack/react-start/server';
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import getCurrentUser from '@/services/getCurrentUser';
 
 export const Route = createFileRoute('/profile/')({
+  onEnter: async ({ context }) => {
+    setCookie('access_token_testxxxxx', 'value', {
+      maxAge: 60 * 60 * 24 * 1,
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+  },
   loader: async ({ context }) => {
-    // Cache datasını önceden cache içine ekliyoruz.
     context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),

@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+// import { setCookie } from '@tanstack/react-start/server';
 
 import fetcher from '@/lib/fetcher';
 
@@ -16,8 +17,7 @@ function sleep(ms: number) {
 const getCurrentUser = createServerFn({
   method: 'GET',
 }).handler(async () => {
-  await sleep(2000);
-  const response = await fetcher<User>({
+  return fetcher<User>({
     url: '/current_user',
     requireAuth: true,
     formData: false,
@@ -25,7 +25,6 @@ const getCurrentUser = createServerFn({
       method: 'GET',
     },
   });
-  return response;
 });
 
 export default getCurrentUser;
