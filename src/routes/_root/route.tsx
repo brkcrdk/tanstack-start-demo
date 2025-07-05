@@ -60,7 +60,7 @@ function RouteComponent() {
             </Breadcrumb>
           </div>
         </header>
-        <main>
+        <main className="p-4">
           <Suspense fallback={<div>Loading...</div>}>
             <Outlet />
           </Suspense>
