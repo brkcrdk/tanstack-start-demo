@@ -1,5 +1,4 @@
 import { createServerFn } from '@tanstack/react-start';
-// import { setCookie } from '@tanstack/react-start/server';
 
 import fetcher from '@/lib/fetcher';
 
@@ -8,10 +7,6 @@ interface User {
   firstName: string;
   lastName: string;
   email: string;
-}
-
-function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const getCurrentUser = createServerFn({

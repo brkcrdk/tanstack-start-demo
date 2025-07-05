@@ -51,13 +51,6 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
 
   try {
     const request = await fetch(`${baseUrl}${url}`, computedOptions);
-    setCookie('access_token_testxxxxx', 'setted_from_fetcher', {
-      maxAge: 60 * 60 * 24 * 1,
-      path: '/',
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-    });
 
     if (!request.ok) {
       if (request.status === 401 && refreshToken) {

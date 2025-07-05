@@ -7,15 +7,6 @@ import { Label } from '@/components/ui/label';
 import getCurrentUser from '@/services/getCurrentUser';
 
 export const Route = createFileRoute('/profile/')({
-  onEnter: async ({ context }) => {
-    setCookie('access_token_testxxxxx', 'value', {
-      maxAge: 60 * 60 * 24 * 1,
-      path: '/',
-      httpOnly: true,
-      secure: true,
-      sameSite: 'strict',
-    });
-  },
   loader: async ({ context }) => {
     context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
@@ -40,7 +31,7 @@ function RouteComponent() {
         action=""
         className="mx-auto flex max-w-md flex-col gap-4"
       >
-        <Label htmlFor="email">Email</Label>
+        {/* <Label htmlFor="email">Email</Label>
         <Input
           type="email"
           id="email"
@@ -57,7 +48,7 @@ function RouteComponent() {
           disabled
           readOnly
           value={`${currentUser.data.firstName} ${currentUser.data.lastName}`}
-        />
+        /> */}
       </form>
     </section>
   );
