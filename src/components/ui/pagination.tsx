@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link, LinkComponentProps } from '@tanstack/react-router';
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
@@ -53,6 +53,7 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
           variant: isActive ? 'outline' : 'ghost',
           size,
         }),
+        'aria-disabled:opacity-50',
         className
       )}
       {...props}
@@ -60,7 +61,7 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
   );
 }
 
-function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
+function PaginationPrevious({ className, ...props }: PaginationLinkProps) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
@@ -74,7 +75,7 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
   );
 }
 
-function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
+function PaginationNext({ className, ...props }: PaginationLinkProps) {
   return (
     <PaginationLink
       aria-label="Go to next page"

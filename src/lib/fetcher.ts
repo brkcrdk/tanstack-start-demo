@@ -42,6 +42,7 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
 
   try {
     const request = await fetch(`${appConfig.apiUrl}${url}`, computedOptions);
+
     if (request.ok) {
       /**
        * NOTE: Refresh token rotation headerı set ettikten sonra token set edemeyeceği için middleware içinde sayfa yüklenirken yapılır.

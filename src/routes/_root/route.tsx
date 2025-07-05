@@ -25,6 +25,11 @@ export const Route = createFileRoute('/_root')({
     context.queryClient.prefetchQuery({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
+      /**
+       * NOTE: Süresiz bir şekilde cachte saklıyoruz ve eğer bir güncelleme olmuşsa zaten manual revalidate edilmesi gerekiyor.
+       * Eğer stale süresini kısa tutarsak, her rerender işleminde cachei temizliyor ve gereksiz yere tekrar request atılıyor.
+       */
+      staleTime: Infinity,
     });
   },
   component: RouteComponent,

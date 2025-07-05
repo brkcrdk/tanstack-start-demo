@@ -1,11 +1,17 @@
+import { getRouteApi } from '@tanstack/react-router';
+
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 
 function VideosPagination() {
+  const routeApi = getRouteApi('/_root/videos/');
+  const { page } = routeApi.useSearch();
+
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
+            disabled={page === 1}
             from="/videos"
             search={({ page }) => ({ page: page && page > 1 ? page - 1 : 1 })}
           />
@@ -21,7 +27,7 @@ function VideosPagination() {
         <PaginationItem>
           <PaginationNext
             from="/videos"
-            search={({ page }) => ({ page: page && page > 0 ? page + 1 : 1 })}
+            search={({ page }) => ({ page: page && page >= 1 ? page + 1 : 1 })}
           />
         </PaginationItem>
       </PaginationContent>
