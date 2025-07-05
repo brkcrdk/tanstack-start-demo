@@ -1,12 +1,19 @@
 import { redirect } from '@tanstack/react-router';
 import { createMiddleware } from '@tanstack/react-start';
-import { getCookie } from '@tanstack/react-start/server';
+import * as z from 'zod/v4-mini';
+
+import { getUserCookies } from './userCookieHandlers';
 
 const checkAuthMiddleware = createMiddleware({ type: 'function' }).server(async ({ next }) => {
   const result = await next();
 
-  const accessToken = getCookie('access_token');
-  const refreshToken = getCookie('refresh_token');
+  const { accessToken, refreshToken } = getUserCookies();
+
+  const isValidToken = z.jwt().safeParse(accessToken);
+
+  if (!isValidToken.success && refreshToken) {
+    console.log('revalidate token');
+  }
 
   if (!accessToken && !refreshToken) {
     throw redirect({
