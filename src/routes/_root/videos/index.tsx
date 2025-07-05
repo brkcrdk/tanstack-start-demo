@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
+import z from 'zod';
 
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import getVideoList from '@/services/getVideoList';
@@ -7,6 +8,10 @@ import getVideoList from '@/services/getVideoList';
 import VideosPagination from './components/VideosPagination';
 
 export const Route = createFileRoute('/_root/videos/')({
+  validateSearch: z.object({
+    page: z.number().min(1).default(1),
+    itemsPerPage: z.number().min(1).default(10),
+  }),
   loader: async ({ context }) => {
     context.queryClient.ensureQueryData({
       queryKey: ['videoList', { page: 1, itemsPerPage: 10 }],
