@@ -8,6 +8,7 @@ interface UserProps {
   avatar: string;
   roles: UserRoleTypes[];
   channels: ChannelProps[];
+  locale: 'tr' | 'en';
   metadata: {
     isAdmin: boolean;
     isChannelAdmin: boolean;
