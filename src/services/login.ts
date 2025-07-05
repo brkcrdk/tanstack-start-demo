@@ -1,5 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
-import z from 'zod/v4-mini';
+import * as z from 'zod/v4-mini';
 
 import fetcher from '@/lib/fetcher';
 import { setUserCookies } from '@/lib/userCookieHandlers';

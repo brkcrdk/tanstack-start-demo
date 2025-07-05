@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import z from 'zod';
+import * as z from 'zod';
 
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import getVideoList from '@/services/getVideoList';

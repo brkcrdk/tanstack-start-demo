@@ -1,6 +1,6 @@
 import { redirect } from '@tanstack/react-router';
 import { createMiddleware } from '@tanstack/react-start';
-import z from 'zod/v4-mini';
+import * as z from 'zod/v4-mini';
 
 import appConfig from '@/app.config';
 
