@@ -12,10 +12,10 @@ export const Route = createFileRoute('/_root/videos/')({
     page: z.number().min(1).default(1),
     itemsPerPage: z.number().min(1).default(10),
   }),
-  loader: async ({ context }) => {
+  beforeLoad: ({ search, context }) => {
     context.queryClient.ensureQueryData({
-      queryKey: ['videoList', { page: 1, itemsPerPage: 10 }],
-      queryFn: () => getVideoList({ data: { page: 1, itemsPerPage: 10 } }),
+      queryKey: ['videoList', search],
+      queryFn: () => getVideoList({ data: search }),
     });
   },
   pendingComponent: () => <div>Loading video list</div>,
@@ -24,15 +24,18 @@ export const Route = createFileRoute('/_root/videos/')({
 });
 
 function RouteComponent() {
+  const search = Route.useSearch();
   const videoList = useSuspenseQuery({
-    queryKey: ['videoList', { page: 1, itemsPerPage: 10 }],
-    queryFn: () => getVideoList({ data: { page: 1, itemsPerPage: 10 } }),
+    queryKey: ['videoList', search],
+    queryFn: () => getVideoList({ data: search }),
   });
 
   return (
     <>
+      <pre>{JSON.stringify(search, null, 4)}</pre>
       <ul className="flex flex-col gap-4">
-        {videoList.data.map(video => (
+        <pre>{JSON.stringify(videoList.data, null, 4)}</pre>
+        {/* {videoList.data.map(video => (
           <li key={video.id}>
             <Card>
               <CardHeader>
@@ -40,7 +43,7 @@ function RouteComponent() {
               </CardHeader>
             </Card>
           </li>
-        ))}
+        ))} */}
       </ul>
       <VideosPagination />
     </>

@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start';
+import querystring from 'query-string';
 import * as z from 'zod/v4-mini';
 
 import fetcher from '@/lib/fetcher';
@@ -13,8 +14,15 @@ const getVideoList = createServerFn({
 })
   .validator(getVideoListSchema)
   .handler(async ({ data }) => {
+    const query = querystring.stringify(
+      {
+        page: data.page,
+        itemsPerPage: data.itemsPerPage,
+      },
+      { skipNull: true }
+    );
     return fetcher<VideoProps[]>({
-      url: `/videos?page=${data.page}&itemsPerPage=${data.itemsPerPage}`,
+      url: `/videos?${query}`,
     });
   });
 
