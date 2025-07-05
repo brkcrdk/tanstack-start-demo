@@ -8,13 +8,7 @@ import { NavProjects } from '@/components/nav-projects';
 import { TeamSwitcher } from '@/components/team-switcher';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 
-// This is sample data.
 const data = {
-  user: {
-    name: 'shadcn',
-    email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
-  },
   teams: [
     {
       name: 'Acme Inc',
@@ -40,8 +34,8 @@ const data = {
       isActive: true,
       items: [
         {
-          title: 'History',
-          url: '#',
+          title: 'Videos',
+          url: '/videos',
         },
         {
           title: 'Starred',

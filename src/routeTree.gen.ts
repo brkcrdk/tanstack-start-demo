@@ -16,6 +16,7 @@ import { Route as RootRouteRouteImport } from './routes/_root/route'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as RootIndexRouteImport } from './routes/_root/index'
+import { Route as RootVideosIndexRouteImport } from './routes/_root/videos/index'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -51,6 +52,11 @@ const RootIndexRoute = RootIndexRouteImport.update({
   path: '/',
   getParentRoute: () => RootRouteRoute,
 } as any)
+const RootVideosIndexRoute = RootVideosIndexRouteImport.update({
+  id: '/videos/',
+  path: '/videos/',
+  getParentRoute: () => RootRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRouteRouteWithChildren
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/': typeof RootIndexRoute
   '/login': typeof LoginIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/videos': typeof RootVideosIndexRoute
 }
 export interface FileRoutesByTo {
   '/logout': typeof LogoutRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof RootIndexRoute
   '/login': typeof LoginIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/videos': typeof RootVideosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -76,12 +84,20 @@ export interface FileRoutesById {
   '/_root/': typeof RootIndexRoute
   '/login/': typeof LoginIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/_root/videos/': typeof RootVideosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/profile' | '/logout' | '/sign-up' | '/' | '/login' | '/profile/'
+  fullPaths:
+    | '/profile'
+    | '/logout'
+    | '/sign-up'
+    | '/'
+    | '/login'
+    | '/profile/'
+    | '/videos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/logout' | '/sign-up' | '/' | '/login' | '/profile'
+  to: '/logout' | '/sign-up' | '/' | '/login' | '/profile' | '/videos'
   id:
     | '__root__'
     | '/_root'
@@ -91,6 +107,7 @@ export interface FileRouteTypes {
     | '/_root/'
     | '/login/'
     | '/profile/'
+    | '/_root/videos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,15 +169,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RootIndexRouteImport
       parentRoute: typeof RootRouteRoute
     }
+    '/_root/videos/': {
+      id: '/_root/videos/'
+      path: '/videos'
+      fullPath: '/videos'
+      preLoaderRoute: typeof RootVideosIndexRouteImport
+      parentRoute: typeof RootRouteRoute
+    }
   }
 }
 
 interface RootRouteRouteChildren {
   RootIndexRoute: typeof RootIndexRoute
+  RootVideosIndexRoute: typeof RootVideosIndexRoute
 }
 
 const RootRouteRouteChildren: RootRouteRouteChildren = {
   RootIndexRoute: RootIndexRoute,
+  RootVideosIndexRoute: RootVideosIndexRoute,
 }
 
 const RootRouteRouteWithChildren = RootRouteRoute._addFileChildren(
