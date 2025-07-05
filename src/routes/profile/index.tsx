@@ -1,6 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { setCookie } from '@tanstack/react-start/server';
 
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -31,7 +30,7 @@ function RouteComponent() {
         action=""
         className="mx-auto flex max-w-md flex-col gap-4"
       >
-        {/* <Label htmlFor="email">Email</Label>
+        <Label htmlFor="email">Email</Label>
         <Input
           type="email"
           id="email"
@@ -48,7 +47,7 @@ function RouteComponent() {
           disabled
           readOnly
           value={`${currentUser.data.firstName} ${currentUser.data.lastName}`}
-        /> */}
+        />
       </form>
     </section>
   );

@@ -1,4 +1,5 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
+
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 
@@ -17,6 +18,10 @@ const chechkAuthToken = createServerFn({ method: 'GET' })
 
 export const Route = createFileRoute('/_root')({
   beforeLoad: () => chechkAuthToken(),
+  /**
+   * NOTE: Bu routea giriş yapıldığında `currentUser`a ait cache değerini dolduruyoruz. Bu noktadan sonra uygulama içerisinde
+   * ihtiyacı olan componentlerde `useSuspenseQuery` hooku ile bu cache değerini kullanabiliyoruz.
+   */
   loader: async ({ context }) => {
     context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
@@ -24,14 +29,10 @@ export const Route = createFileRoute('/_root')({
     });
   },
   component: RouteComponent,
+  pendingComponent: () => <div>Loading...</div>,
 });
 
 function RouteComponent() {
-  const currentUser = useSuspenseQuery({
-    queryKey: ['currentUser'],
-    queryFn: () => getCurrentUser(),
-  });
-
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -60,7 +61,9 @@ function RouteComponent() {
           </div>
         </header>
         <main>
-          <Outlet />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
         </main>
       </SidebarInset>
     </SidebarProvider>
