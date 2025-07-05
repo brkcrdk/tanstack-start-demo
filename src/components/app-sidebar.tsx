@@ -2,9 +2,9 @@ import { ComponentProps } from 'react';
 
 import { AudioWaveform, BookOpen, Bot, Command, Frame, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal } from 'lucide-react';
 
+import NavUser from '@/components/NavUser';
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
-import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/components/ui/sidebar';
 
@@ -157,7 +157,7 @@ function AppSidebar({ isProfileSidebar, sidebarProps }: Props) {
         {!isProfileSidebar && <NavProjects projects={data.projects} />}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

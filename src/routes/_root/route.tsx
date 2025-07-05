@@ -1,3 +1,4 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 
@@ -6,6 +7,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import checkAuthMiddleware from '@/lib/checkAuthMiddleware';
+import getCurrentUser from '@/services/getCurrentUser';
 
 const chechkAuthToken = createServerFn({ method: 'GET' })
   .middleware([checkAuthMiddleware])
@@ -15,10 +17,21 @@ const chechkAuthToken = createServerFn({ method: 'GET' })
 
 export const Route = createFileRoute('/_root')({
   beforeLoad: () => chechkAuthToken(),
+  loader: async ({ context }) => {
+    context.queryClient.ensureQueryData({
+      queryKey: ['currentUser'],
+      queryFn: () => getCurrentUser(),
+    });
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const currentUser = useSuspenseQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => getCurrentUser(),
+  });
+
   return (
     <SidebarProvider>
       <AppSidebar />
