@@ -18,7 +18,8 @@ export const Route = createFileRoute('/_root')({
   beforeLoad: () => chechkAuthToken(),
   /**
    * NOTE: Bu routea giriş yapıldığında `currentUser`a ait cache değerini dolduruyoruz. Bu noktadan sonra uygulama içerisinde
-   * ihtiyacı olan componentlerde `useSuspenseQuery` hooku ile bu cache değerini kullanabiliyoruz.
+   * ihtiyacı olan componentlerde `useSuspenseQuery` hooku ile bu cache değerini kullanabiliyoruz. useSuspenseQuery hooku ile cache değerini kullanırken
+   * `Suspense` kullanarak da UI'ın sadece veri çeken kısımlarda loading yaparak ui'ın olabildiğince az bloklanmasını sağlamış oluyoruz.
    */
   loader: async ({ context }) => {
     context.queryClient.prefetchQuery({
