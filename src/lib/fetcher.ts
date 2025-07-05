@@ -1,8 +1,6 @@
-import { setCookie } from '@tanstack/react-start/server';
-
 import appConfig from '@/app.config';
 
-import { getUserCookies, setUserCookies } from './userCookieHandlers';
+import { getUserCookies } from './userCookieHandlers';
 
 const baseUrl = `${appConfig.baseUrl}/api`;
 
@@ -63,10 +61,9 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
         });
 
         if (refreshRequest.ok) {
-          const refreshResponse: RefreshResponse = await refreshRequest.json();
-          setUserCookies(refreshResponse.token, refreshResponse.refreshToken);
-
-          return fetcher({ url, fetchOptions: computedOptions, requireAuth, formData });
+          console.log('renew tokens somehow');
+          // const refreshResponse: RefreshResponse = await refreshRequest.json();
+          // return fetcher({ url, fetchOptions: computedOptions, requireAuth, formData });
         }
       } else {
         throw new Error(request.statusText, {
