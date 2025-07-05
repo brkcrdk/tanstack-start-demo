@@ -14,11 +14,6 @@ const getCurrentUser = createServerFn({
 }).handler(async () => {
   return fetcher<User>({
     url: '/current_user',
-    requireAuth: true,
-    formData: false,
-    fetchOptions: {
-      method: 'GET',
-    },
   });
 });
 

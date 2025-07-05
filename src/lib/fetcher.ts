@@ -2,13 +2,6 @@ import appConfig from '@/app.config';
 
 import { getUserCookies } from './userCookieHandlers';
 
-const baseUrl = `${appConfig.baseUrl}/api`;
-
-interface RefreshResponse {
-  token: string;
-  refreshToken: string;
-}
-
 interface Props {
   url: string;
   fetchOptions?: RequestInit;
@@ -29,7 +22,7 @@ interface Props {
 }
 
 async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData = false }: Props): Promise<T> {
-  const { accessToken, refreshToken } = getUserCookies();
+  const { accessToken } = getUserCookies();
 
   const headers = new Headers(fetchOptions.headers);
 
@@ -48,34 +41,20 @@ async function fetcher<T>({ url, fetchOptions = {}, requireAuth = true, formData
   };
 
   try {
-    const request = await fetch(`${baseUrl}${url}`, computedOptions);
-
-    if (!request.ok) {
-      if (request.status === 401 && refreshToken) {
-        const refreshRequest = await fetch(`${baseUrl}/refresh_token`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ refreshToken }),
-        });
-
-        if (refreshRequest.ok) {
-          console.log('renew tokens somehow');
-          // const refreshResponse: RefreshResponse = await refreshRequest.json();
-          // return fetcher({ url, fetchOptions: computedOptions, requireAuth, formData });
-        }
-      } else {
-        throw new Error(request.statusText, {
-          cause: {
-            code: request.status,
-            message: request.statusText,
-          },
-        });
-      }
+    const request = await fetch(`${appConfig.apiUrl}${url}`, computedOptions);
+    if (request.ok) {
+      /**
+       * NOTE: Refresh token rotation headerı set ettikten sonra token set edemeyeceği için middleware içinde sayfa yüklenirken yapılır.
+       */
+      return request.json();
+    } else {
+      throw new Error(request.statusText, {
+        cause: {
+          code: request.status,
+          message: request.statusText,
+        },
+      });
     }
-
-    return request.json();
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'unknown error';
 
