@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 
@@ -23,13 +21,12 @@ export const Route = createFileRoute('/_root')({
    * ihtiyacı olan componentlerde `useSuspenseQuery` hooku ile bu cache değerini kullanabiliyoruz.
    */
   loader: async ({ context }) => {
-    context.queryClient.ensureQueryData({
+    context.queryClient.prefetchQuery({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
     });
   },
   component: RouteComponent,
-  pendingComponent: () => <div>Loading...</div>,
 });
 
 function RouteComponent() {
@@ -61,9 +58,7 @@ function RouteComponent() {
           </div>
         </header>
         <main className="p-4">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Outlet />
-          </Suspense>
+          <Outlet />
         </main>
       </SidebarInset>
     </SidebarProvider>
