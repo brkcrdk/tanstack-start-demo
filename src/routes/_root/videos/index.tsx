@@ -2,22 +2,15 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 import getVideoList from '@/services/getVideoList';
+
+import VideosPagination from './components/VideosPagination';
 
 export const Route = createFileRoute('/_root/videos/')({
   loader: async ({ context }) => {
     context.queryClient.ensureQueryData({
-      queryKey: ['videoList'],
-      queryFn: () => getVideoList(),
+      queryKey: ['videoList', { page: 1, itemsPerPage: 10 }],
+      queryFn: () => getVideoList({ data: { page: 1, itemsPerPage: 10 } }),
     });
   },
   pendingComponent: () => <div>Loading video list</div>,
@@ -27,8 +20,8 @@ export const Route = createFileRoute('/_root/videos/')({
 
 function RouteComponent() {
   const videoList = useSuspenseQuery({
-    queryKey: ['videoList'],
-    queryFn: () => getVideoList(),
+    queryKey: ['videoList', { page: 1, itemsPerPage: 10 }],
+    queryFn: () => getVideoList({ data: { page: 1, itemsPerPage: 10 } }),
   });
 
   return (
@@ -44,22 +37,7 @@ function RouteComponent() {
           </li>
         ))}
       </ul>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <VideosPagination />
     </>
   );
 }
