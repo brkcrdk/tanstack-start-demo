@@ -7,11 +7,13 @@ import getVideoList from '@/services/getVideoList';
 
 import VideosPagination from './components/VideosPagination';
 
+const videoSearchSchema = z.object({
+  page: z.number().catch(1),
+  itemsPerPage: z.number().catch(10),
+});
+
 export const Route = createFileRoute('/_root/videos/')({
-  validateSearch: z.object({
-    page: z.number().min(1).default(1),
-    itemsPerPage: z.number().min(1).default(10),
-  }),
+  validateSearch: videoSearchSchema,
   beforeLoad: ({ search, context }) => {
     context.queryClient.ensureQueryData({
       queryKey: ['videoList', search],
@@ -34,8 +36,7 @@ function RouteComponent() {
     <>
       <pre>{JSON.stringify(search, null, 4)}</pre>
       <ul className="flex flex-col gap-4">
-        <pre>{JSON.stringify(videoList.data, null, 4)}</pre>
-        {/* {videoList.data.map(video => (
+        {videoList.data.map(video => (
           <li key={video.id}>
             <Card>
               <CardHeader>
@@ -43,7 +44,7 @@ function RouteComponent() {
               </CardHeader>
             </Card>
           </li>
-        ))} */}
+        ))}
       </ul>
       <VideosPagination />
     </>

@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
 import querystring from 'query-string';
-import * as z from 'zod/v4-mini';
+import * as z from 'zod/v4';
 
 import fetcher from '@/lib/fetcher';
 
