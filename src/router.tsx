@@ -14,6 +14,7 @@ export function createRouter() {
       routeTree,
       context: { queryClient },
       defaultPreload: 'intent',
+      defaultPreloadDelay: 300,
       defaultErrorComponent: DefaultCatchBoundary,
       defaultNotFoundComponent: () => <NotFound />,
     }),
