@@ -15,7 +15,7 @@ const checkAuth = createServerFn({ method: 'GET' })
   });
 
 export const Route = createFileRoute('/profile')({
-  beforeLoad: () => checkAuth(),
+  loader: () => checkAuth(),
   component: RouteComponent,
 });
 

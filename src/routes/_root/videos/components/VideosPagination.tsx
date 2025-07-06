@@ -17,12 +17,15 @@ function VideosPagination() {
           />
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="/videos?page=1">1</PaginationLink>
-          <PaginationLink href="/videos?page=2">2</PaginationLink>
-          <PaginationLink href="/videos?page=3">3</PaginationLink>
-          <PaginationLink href="/videos?page=4">4</PaginationLink>
-          <PaginationLink href="/videos?page=5">5</PaginationLink>
-          <PaginationLink href="/videos?page=6">6</PaginationLink>
+          {[1, 2, 3, 4, 5, 6].map(pageNumber => (
+            <PaginationLink
+              key={pageNumber}
+              isActive={page === pageNumber}
+              href={`/videos?page=${pageNumber}`}
+            >
+              {pageNumber}
+            </PaginationLink>
+          ))}
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
