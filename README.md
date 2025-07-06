@@ -9,6 +9,6 @@ TODOS:
 - [x] Mutation sonrasında çekilen cache güncellemesini test edelim
 - [x] Optimistic update konusunu test edelim.
 - [ ] Infinite scroll yapısını test edelim.
-- [ ] Mutation sırasındaki token rotation konusnu test edelim.
 - [ ] Video detay sayfası oluşturup burada video detayını prefect etme işlemini test edelim. Video listesinde yer alan linke hover edildiği zaman prefetch yapılabilir.
+- [ ] Mutation sırasındaki token rotation konusnu test edelim.
 
