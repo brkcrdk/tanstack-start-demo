@@ -58,7 +58,10 @@ function NavUser() {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem asChild>
-              <Link to="/logout">
+              <Link
+                to="/logout"
+                preload={false}
+              >
                 <LogOut />
                 Log out
               </Link>
