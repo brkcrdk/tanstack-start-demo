@@ -19,7 +19,7 @@ export type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export const Route = createFileRoute('/profile/')({
   loader: async ({ context }) => {
-    context.queryClient.prefetchQuery({
+    context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
     });

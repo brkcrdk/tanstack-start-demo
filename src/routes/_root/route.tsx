@@ -22,7 +22,7 @@ export const Route = createFileRoute('/_root')({
    * `Suspense` kullanarak da UI'ın sadece veri çeken kısımlarda loading yaparak ui'ın olabildiğince az bloklanmasını sağlamış oluyoruz.
    */
   loader: async ({ context }) => {
-    context.queryClient.prefetchQuery({
+    context.queryClient.ensureQueryData({
       queryKey: ['currentUser'],
       queryFn: () => getCurrentUser(),
       /**
