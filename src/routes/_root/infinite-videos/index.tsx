@@ -29,23 +29,24 @@ export const Route = createFileRoute('/_root/infinite-videos/')({
 function RouteComponent() {
   const search = Route.useSearch();
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage, fetchPreviousPage, isFetchingNextPage, isFetchingPreviousPage } = useInfiniteQuery({
     queryKey: ['infinite-video-list'],
     queryFn: ({ pageParam = 1 }) => getVideoList({ data: { page: pageParam, itemsPerPage: search.itemsPerPage } }),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, pages, lastPageParam) => {
-      console.log({ lastPage, pages, lastPageParam });
-      return lastPageParam + 1;
-    },
-
+    getNextPageParam: (lastPage, pages, lastPageParam) => lastPageParam + 1,
+    getPreviousPageParam: (firstPage, allPages, firstPageParam) => firstPageParam - 1,
     maxPages: 4,
   });
 
-  if (!data) return 'loading...';
+  if (!data) return 'rendering infinite video list ...';
 
   return (
     <div className="flex flex-col gap-4">
+      <Button onClick={() => fetchPreviousPage()}>Fetch Previous Page</Button>
+
       <ul className="flex flex-col gap-4">
+        {isFetchingPreviousPage && <div>Fetching previous page...</div>}
+
         {data.pages.map(page => {
           return page.map(video => {
             return (
