@@ -1,4 +1,4 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { Controller, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -23,10 +23,13 @@ function UserForm() {
     queryFn: () => getCurrentUser(),
   });
 
+  const queryClient = useQueryClient();
+
   const { mutate, isPending } = useMutation({
     mutationFn: updateUserProfile,
     onSuccess: () => {
       toast.success('User profile updated successfully');
+      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
     },
     onError: () => {
       toast.error('Failed to update user profile');
