@@ -17,6 +17,7 @@ import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
 import { Route as RootIndexRouteImport } from './routes/_root/index'
 import { Route as RootVideosIndexRouteImport } from './routes/_root/videos/index'
+import { Route as RootInfiniteVideosIndexRouteImport } from './routes/_root/infinite-videos/index'
 
 const SignUpRoute = SignUpRouteImport.update({
   id: '/sign-up',
@@ -57,6 +58,11 @@ const RootVideosIndexRoute = RootVideosIndexRouteImport.update({
   path: '/videos/',
   getParentRoute: () => RootRouteRoute,
 } as any)
+const RootInfiniteVideosIndexRoute = RootInfiniteVideosIndexRouteImport.update({
+  id: '/infinite-videos/',
+  path: '/infinite-videos/',
+  getParentRoute: () => RootRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRouteRouteWithChildren
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/': typeof RootIndexRoute
   '/login': typeof LoginIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/infinite-videos': typeof RootInfiniteVideosIndexRoute
   '/videos': typeof RootVideosIndexRoute
 }
 export interface FileRoutesByTo {
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof RootIndexRoute
   '/login': typeof LoginIndexRoute
   '/profile': typeof ProfileIndexRoute
+  '/infinite-videos': typeof RootInfiniteVideosIndexRoute
   '/videos': typeof RootVideosIndexRoute
 }
 export interface FileRoutesById {
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/_root/': typeof RootIndexRoute
   '/login/': typeof LoginIndexRoute
   '/profile/': typeof ProfileIndexRoute
+  '/_root/infinite-videos/': typeof RootInfiniteVideosIndexRoute
   '/_root/videos/': typeof RootVideosIndexRoute
 }
 export interface FileRouteTypes {
@@ -95,9 +104,17 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/profile/'
+    | '/infinite-videos'
     | '/videos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/logout' | '/sign-up' | '/' | '/login' | '/profile' | '/videos'
+  to:
+    | '/logout'
+    | '/sign-up'
+    | '/'
+    | '/login'
+    | '/profile'
+    | '/infinite-videos'
+    | '/videos'
   id:
     | '__root__'
     | '/_root'
@@ -107,6 +124,7 @@ export interface FileRouteTypes {
     | '/_root/'
     | '/login/'
     | '/profile/'
+    | '/_root/infinite-videos/'
     | '/_root/videos/'
   fileRoutesById: FileRoutesById
 }
@@ -176,16 +194,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RootVideosIndexRouteImport
       parentRoute: typeof RootRouteRoute
     }
+    '/_root/infinite-videos/': {
+      id: '/_root/infinite-videos/'
+      path: '/infinite-videos'
+      fullPath: '/infinite-videos'
+      preLoaderRoute: typeof RootInfiniteVideosIndexRouteImport
+      parentRoute: typeof RootRouteRoute
+    }
   }
 }
 
 interface RootRouteRouteChildren {
   RootIndexRoute: typeof RootIndexRoute
+  RootInfiniteVideosIndexRoute: typeof RootInfiniteVideosIndexRoute
   RootVideosIndexRoute: typeof RootVideosIndexRoute
 }
 
 const RootRouteRouteChildren: RootRouteRouteChildren = {
   RootIndexRoute: RootIndexRoute,
+  RootInfiniteVideosIndexRoute: RootInfiniteVideosIndexRoute,
   RootVideosIndexRoute: RootVideosIndexRoute,
 }
 

@@ -38,8 +38,8 @@ const data = {
           url: '/videos',
         },
         {
-          title: 'Starred',
-          url: '#',
+          title: 'Infinite Videos',
+          url: '/infinite-videos',
         },
         {
           title: 'Settings',
