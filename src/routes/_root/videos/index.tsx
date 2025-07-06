@@ -8,9 +8,11 @@ import getVideoList from '@/services/getVideoList';
 import VideoList from './components/VideoList';
 import VideosPagination from './components/VideosPagination';
 
+const ITEMS_PER_PAGE = 10;
+
 const videoSearchSchema = z.object({
   page: z.number().catch(1),
-  itemsPerPage: z.number().catch(1),
+  itemsPerPage: z.number().catch(ITEMS_PER_PAGE),
 });
 
 export const Route = createFileRoute('/_root/videos/')({
