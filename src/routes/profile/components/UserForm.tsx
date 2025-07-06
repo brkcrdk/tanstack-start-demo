@@ -17,7 +17,7 @@ const localeOptions: Record<'tr' | 'en', string> = {
 };
 
 function UserForm() {
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: updateUserProfile,
     onSuccess: () => {
       toast.success('User profile updated successfully');
@@ -122,7 +122,12 @@ function UserForm() {
           </Select>
         )}
       />
-      <Button type="submit">Kaydet</Button>
+      <Button
+        type="submit"
+        disabled={isPending}
+      >
+        {isPending ? 'Kayıt Ediliyor...' : 'Kaydet'}
+      </Button>
     </form>
   );
 }
