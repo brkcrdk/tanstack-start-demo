@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { FormProvider, useForm, useFormState } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import * as z from 'zod/v4';
 
 import getCurrentUser from '@/services/getCurrentUser';
@@ -29,25 +30,22 @@ export const Route = createFileRoute('/profile/')({
 });
 
 function RouteComponent() {
-  const form = useForm({
-    resolver: zodResolver(profileSchema),
-    defaultValues: async () => {
-      const currentUser = await getCurrentUser();
-      return {
-        email: currentUser.email,
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        locale: currentUser.locale,
-      };
-    },
+  const data = useSuspenseQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => getCurrentUser(),
   });
 
-  const { isLoading } = useFormState({ control: form.control });
+  const form = useForm({
+    resolver: zodResolver(profileSchema),
+    defaultValues: data.data,
+  });
 
   return (
     <section aria-label="User Profile Area">
       <h4 className="text-2xl font-bold">Profile</h4>
-      <FormProvider {...form}>{isLoading ? <div>Form loading...</div> : <UserForm />}</FormProvider>
+      <FormProvider {...form}>
+        <UserForm />
+      </FormProvider>
     </section>
   );
 }

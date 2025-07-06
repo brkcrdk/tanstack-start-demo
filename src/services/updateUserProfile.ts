@@ -1,11 +1,24 @@
 import { createServerFn } from '@tanstack/react-start';
+import * as z from 'zod/v4-mini';
 
 import fetcher from '@/lib/fetcher';
 
+const updateUserProfileSchema = z.object({
+  locale: z.enum(['tr', 'en']),
+});
+
 const updateUserProfile = createServerFn({
   method: 'POST',
-}).handler(async () => {
-  return 'x';
-});
+})
+  .validator(updateUserProfileSchema)
+  .handler(async ({ data }) => {
+    return fetcher<{ message: string }>({
+      url: '/user-edit',
+      fetchOptions: {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      },
+    });
+  });
 
 export default updateUserProfile;

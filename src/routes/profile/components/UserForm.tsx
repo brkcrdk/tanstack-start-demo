@@ -1,10 +1,13 @@
+import { useMutation } from '@tanstack/react-query';
 import { Controller, useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import updateUserProfile from '@/services/updateUserProfile';
 
 import { ProfileFormValues } from '../index';
 
@@ -14,14 +17,28 @@ const localeOptions: Record<'tr' | 'en', string> = {
 };
 
 function UserForm() {
+  const { mutate } = useMutation({
+    mutationFn: updateUserProfile,
+    onSuccess: () => {
+      toast.success('User profile updated successfully');
+    },
+    onError: () => {
+      toast.error('Failed to update user profile');
+    },
+  });
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useFormContext<ProfileFormValues>();
 
-  const onSubmit = (data: ProfileFormValues) => {
-    console.log(data);
+  const onSubmit = ({ locale }: ProfileFormValues) => {
+    mutate({
+      data: {
+        locale,
+      },
+    });
   };
 
   return (
