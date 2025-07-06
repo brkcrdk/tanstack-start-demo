@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { Controller, useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import getCurrentUser from '@/services/getCurrentUser';
 import updateUserProfile from '@/services/updateUserProfile';
 
 import { ProfileFormValues } from '../index';
@@ -17,6 +18,11 @@ const localeOptions: Record<'tr' | 'en', string> = {
 };
 
 function UserForm() {
+  const currentUser = useSuspenseQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => getCurrentUser(),
+  });
+
   const { mutate, isPending } = useMutation({
     mutationFn: updateUserProfile,
     onSuccess: () => {
@@ -37,6 +43,8 @@ function UserForm() {
     mutate({
       data: {
         locale,
+        // Backend eğer avatar gönderilmezse mevcut avatarı siliyor. Bu nedenle mevcut avatarı da gönderiyoruz.
+        avatar: currentUser.data.avatar,
       },
     });
   };

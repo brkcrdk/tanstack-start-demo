@@ -5,6 +5,7 @@ import fetcher from '@/lib/fetcher';
 
 const updateUserProfileSchema = z.object({
   locale: z.enum(['tr', 'en']),
+  avatar: z.string(),
 });
 
 const updateUserProfile = createServerFn({
