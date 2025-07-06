@@ -27,12 +27,35 @@ function UserForm() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: updateUserProfile,
-    onSuccess: () => {
-      toast.success('User profile updated successfully');
-      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+
+    // NOT: VARSAYILAN INVALIDATE ÖRNEĞİ
+    // onSuccess: (data, variables) => {
+    //   // console.log(data, variables);
+    //   // toast.success('User profile updated successfully');
+    //   queryClient.invalidateQueries({ queryKey: ['currentUser'] });
+    //   // queryClient.setQueryData(['currentUser'], data);
+    // },
+
+    // NOT: OPTIMISTIC UPDATE ÖRNEĞİ
+    onMutate: async ({ data }) => {
+      await queryClient.cancelQueries({ queryKey: ['currentUser'] });
+
+      const previousUser = queryClient.getQueryData<UserProps>(['currentUser']);
+
+      queryClient.setQueryData<UserProps>(['currentUser'], oldData => {
+        if (oldData) {
+          return { ...oldData, ...data };
+        }
+      });
+
+      return { previousUser };
     },
-    onError: () => {
+    onError: (err, newData, context) => {
+      queryClient.setQueryData<UserProps>(['currentUser'], context?.previousUser);
       toast.error('Failed to update user profile');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['currentUser'] });
     },
   });
 
@@ -57,6 +80,7 @@ function UserForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="mx-auto flex max-w-md flex-col gap-4"
     >
+      <pre>{JSON.stringify(currentUser.data.locale, null, 4)}</pre>
       <Label htmlFor="email">Email</Label>
       <Controller
         control={control}

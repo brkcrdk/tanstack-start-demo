@@ -20,6 +20,8 @@ const updateUserProfile = createServerFn({
         body: JSON.stringify(data),
       },
     });
+
+    return true;
   });
 
 export default updateUserProfile;
