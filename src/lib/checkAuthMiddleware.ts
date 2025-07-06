@@ -29,6 +29,10 @@ const checkAuthMiddleware = createMiddleware({ type: 'function' }).server(async 
     if (refreshRequest.ok) {
       const refreshResponse: RefreshResponse = await refreshRequest.json();
       setUserCookies(refreshResponse.token, refreshResponse.refreshToken);
+    } else {
+      throw redirect({
+        to: '/login',
+      });
     }
   }
 
