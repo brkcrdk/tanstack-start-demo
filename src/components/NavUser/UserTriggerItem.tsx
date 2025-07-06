@@ -30,7 +30,9 @@ function UserTriggerItem() {
           </AvatarFallback>
         </Avatar>
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-medium">{currentUser.data.firstName}</span>
+          <span className="truncate font-medium">
+            {currentUser.data.firstName} {currentUser.data.lastName} ({currentUser.data.locale})
+          </span>
           <span className="truncate text-xs">{currentUser.data.email}</span>
         </div>
         <ChevronsUpDown className="ml-auto size-4" />

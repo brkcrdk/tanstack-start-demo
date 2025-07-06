@@ -22,7 +22,9 @@ function UserDropdownItem() {
           <AvatarFallback className="rounded-lg">CN</AvatarFallback>
         </Avatar>
         <div className="grid flex-1 text-left text-sm leading-tight">
-          <span className="truncate font-medium">{currentUser.data.firstName}</span>
+          <span className="truncate font-medium">
+            {currentUser.data.firstName} {currentUser.data.lastName}
+          </span>
           <span className="truncate text-xs">{currentUser.data.email}</span>
         </div>
       </div>
